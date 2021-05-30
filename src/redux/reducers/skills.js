@@ -5,7 +5,6 @@ export default function skillsReducer(state = {}, action) {
     case SKILLS: {
       return action.payload;
     }
-    // omit other cases
     default:
       return state;
   }

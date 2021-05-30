@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router';
-// import PropTypes from "prop-types";
 import API from '../../utils/axios';
 import { Link } from 'react-router-dom';
 
@@ -52,7 +51,7 @@ function Skill() {
     }
   }, [id]);
   return (
-    <div>
+    <main>
       <div className="container">
         <h1 className="container__headline">{jobTitle || error}</h1>
 
@@ -93,10 +92,8 @@ function Skill() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
-
-// Home.propTypes = {};
 
 export default Skill;

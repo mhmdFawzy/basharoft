@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-// import PropTypes from "prop-types";
 import { Link, useHistory } from 'react-router-dom';
 import './SearchInput.scss';
 import useDebounce from '../../utils/useDebounce';
@@ -110,7 +109,5 @@ function SearchInput() {
     </div>
   );
 }
-
-// SearchInput.propTypes = {};
 
 export default SearchInput;

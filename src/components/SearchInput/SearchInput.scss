@@ -10,8 +10,6 @@
   justify-content: center;
   width: 100%;
   height: 10vw;
-  // min-height: 70px;
-  // max-height: 144px;
 
   .inputConatiner {
     height: 10vw;
@@ -21,7 +19,6 @@
     display: flex;
     align-items: center;
 
-    // justify-content: center;
     form {
       width: 100%;
       max-width: 54vw;
@@ -42,7 +39,6 @@
         width: 100%;
         height: 100%;
 
-        // max-height: 75px;
         padding: 0 1.1vw;
         background: $white;
         border: 1px solid #000000;
@@ -51,14 +47,6 @@
         position: relative;
         line-height: 140.62%;
         font-weight: normal;
-
-        // @include for-phone-only {
-        //   height: 60%;
-        // }
-
-        // @include for-tablet-up {
-        //   height: 50%;
-        // }
 
         + button {
           cursor: pointer;
@@ -72,14 +60,12 @@
           @include for-phone-only {
             width: 3.5vw;
             height: 3.5vw;
-            // top: 30%;
             top: calc(50% - 1.75vw);
           }
 
           @include for-tablet-up {
             width: 1.5vw;
             height: 1.5vw;
-            // top: 40%;
             top: calc(50% - 0.75vw);
           }
 

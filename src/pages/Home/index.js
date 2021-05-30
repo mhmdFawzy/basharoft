@@ -46,7 +46,7 @@ function Home({ isloading, error, jobsNumber }) {
   return (
     <div>
       <SearchInput />
-      <div className="container">
+      <main className="container">
         <h1 className="container__headline">All Jobs ({jobsNumber >= 1 && jobsNumber})</h1>
         <div className="jobsWrapper">
           {Object.keys(jobs).length >= 1 &&
@@ -54,7 +54,7 @@ function Home({ isloading, error, jobsNumber }) {
               if (Object.keys(jobs).length - 2 === i) {
                 return (
                   <Suspense fallback={<div>Loading...</div>} key={uuid}>
-                    <JobCard job={jobs[uuid]} innerRef={lastCrad} />
+                    <JobCard job={jobs[uuid]} ref={lastCrad} />
                   </Suspense>
                 );
               } else {
@@ -69,7 +69,7 @@ function Home({ isloading, error, jobsNumber }) {
             Array.from({ length: 12 }).map((item, i) => <Rect key={i} />)}
           {error && error}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

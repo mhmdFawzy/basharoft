@@ -19,7 +19,6 @@ export default function jobsReducer(state = {}, action) {
     case ADDJOB: {
       return { ...state, ...action.payload };
     }
-    // omit other cases
     default:
       return state;
   }

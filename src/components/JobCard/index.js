@@ -8,7 +8,7 @@ import { editJob } from '../../redux/actions/jobs';
 import Rect from '../loading/Rect';
 const SkillTag = React.lazy(() => import('../SkillTag'));
 
-function JobCard({ job, innerRef }) {
+function JobCard({ job }, ref) {
   const dispatch = useDispatch();
   const [relatedSkills, setRelatedSkills] = useState([]);
   const [error, setError] = useState('');
@@ -43,7 +43,7 @@ function JobCard({ job, innerRef }) {
     };
   }, [dispatch, job.title, job.uuid, relatedSkills]);
   return (
-    <div className="jobcardWrapper" ref={innerRef}>
+    <div className="jobcardWrapper" ref={ref}>
       <div className="jobcard__content">
         <h3>{job.title || job.suggestion}</h3>
         <div className="skillsWrapper">
@@ -73,7 +73,6 @@ function JobCard({ job, innerRef }) {
     </div>
   );
 }
-
 JobCard.propTypes = {
   job: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
@@ -83,7 +82,7 @@ JobCard.propTypes = {
     parent_uuid: PropTypes.string.isRequired,
     skills: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   }).isRequired,
-  innerRef: PropTypes.func,
 };
+JobCard.displayName = 'JobCard';
 
-export default React.memo(React.forwardRef(JobCard));
+export default React.forwardRef(JobCard);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router';
-// import PropTypes from "prop-types";
 import API from '../../utils/axios';
 import { Link } from 'react-router-dom';
 
@@ -93,7 +92,5 @@ function Job() {
     </div>
   );
 }
-
-// Home.propTypes = {};
 
 export default Job;

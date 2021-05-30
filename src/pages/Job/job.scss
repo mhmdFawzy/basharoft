@@ -1,14 +1,19 @@
 @import '../../styles/colors';
+@import '../../styles/media';
 
 .job__relatedskills {
   background-color: $white;
   padding: 2vw 1.45vw 4.1vw 2.7vw;
 
   svg {
-    width: 100%;
+    width: 80%;
     position: relative;
     top: 1vw;
-    left: -10.5vw;
+    left: 2%;
+
+    @include for-phone-only {
+      left: 0;
+    }
   }
 
   h3 {

@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Job from './pages/Job';
 import Skill from './pages/Skill';
 import Search from './pages/Search';
+import NotFound from './pages/NotFound';
 import { setJobs } from './redux/actions/jobs';
 import { setSkills } from './redux/actions/skills';
 
@@ -21,15 +22,20 @@ function App() {
   useEffect(() => {
     setIsloading(true);
     try {
-      API.get('jobs?limit=499').then(res => {
-        setjobsNumber(res.data.length);
-        res.data.slice(0, 12).forEach(job => {
-          const modifiedJobs = { ...job };
-          normalizedJobs[job.uuid] = modifiedJobs;
+      API.get('jobs?limit=499')
+        .then(res => {
+          setjobsNumber(res.data.length);
+          res.data.slice(0, 12).forEach(job => {
+            const modifiedJobs = { ...job };
+            normalizedJobs[job.uuid] = modifiedJobs;
+          });
+          setIsloading(false);
+          dispatch(setJobs(normalizedJobs));
+        })
+        .catch(() => {
+          setError('Something went wrong with skills');
+          setIsloading(false);
         });
-        setIsloading(false);
-        dispatch(setJobs(normalizedJobs));
-      });
     } catch (err) {
       setIsloading(false);
       setError('Something went wrong with jobs');
@@ -38,14 +44,19 @@ function App() {
   useEffect(() => {
     setIsloading(true);
     try {
-      API.get('skills?limit=499').then(res => {
-        res.data.forEach(skill => {
-          const modifiedJobs = { ...skill };
-          normalizedSkills[skill.uuid] = modifiedJobs;
+      API.get('skills?limit=499')
+        .then(res => {
+          res.data.forEach(skill => {
+            const modifiedJobs = { ...skill };
+            normalizedSkills[skill.uuid] = modifiedJobs;
+          });
+          setIsloading(false);
+          dispatch(setSkills(normalizedSkills));
+        })
+        .catch(() => {
+          setError('Something went wrong with skills');
+          setIsloading(false);
         });
-        setIsloading(false);
-        dispatch(setSkills(normalizedSkills));
-      });
     } catch (err) {
       setIsloading(false);
       setError('Something went wrong with skills');
@@ -69,6 +80,7 @@ function App() {
             <Route exact path="/search">
               <Search />
             </Route>
+            <Route component={NotFound} />
           </Switch>
         </Header>
       </div>

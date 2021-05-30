@@ -58,7 +58,7 @@ a:active {
   }
 
   @include for-tablet-up {
-    grid-template-columns: repeat(2, calc(50% - 1.1vw));
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 1.1vw), 1fr));
     justify-content: unset;
   }
 }

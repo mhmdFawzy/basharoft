@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect, useState } from 'react';
-// import PropTypes from "prop-types";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -41,11 +40,6 @@ function Search() {
             setjobsNumber(res.data.length);
             const normalizedJobs = {};
             res.data.slice(0, 12).forEach(relatedJob => {
-              // Object.keys(jobs).map(job => {
-              //   // console.log(relatedJob.uuid === jobs[job]);
-              //   console.log(jobs[relatedJob.uuid]);
-              //   // console.log(relatedJob.uuid);
-              // });
               const modifiedJobs = { ...relatedJob };
               normalizedJobs[relatedJob.uuid] = modifiedJobs;
             });
@@ -68,7 +62,7 @@ function Search() {
   return (
     <div>
       <SearchInput />
-      <div className="container">
+      <main className="container">
         {location.state?.searchVal ? (
           <h1 className="container__headline">
             {`"${location.state.searchVal}" jobs (${jobsNumber})`}
@@ -114,11 +108,9 @@ function Search() {
             </ul>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
-
-// Home.propTypes = {};
 
 export default Search;

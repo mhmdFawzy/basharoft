@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from './components/Layout/Header';
 import Home from './pages/Home';
 import Job from './pages/Job';

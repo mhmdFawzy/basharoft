@@ -1,23 +1,22 @@
-@import "../../styles/colors";
+@import '../../styles/colors';
 
 .relatedCardWrapper {
-    background-color: $lightGrey;
-    width: 100%;
-    padding: 1.38vw 2vw;
-    margin: 1.9vw 0;
+  background-color: $lightGrey;
+  width: 100%;
+  padding: 1.38vw 2vw;
+  margin: 1.9vw 0;
 
-    text-transform: capitalize;
+  text-transform: capitalize;
 
-    h3 {
-        text-decoration: underline;
+  h3 {
+    text-decoration: underline;
+  }
+
+  .relatedCard {
+    &__points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
     }
-
-    .relatedCard {
-
-        &__points {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: 1fr;
-        }
-    }
+  }
 }

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './skilltag.scss';
 import { Link } from 'react-router-dom';
-import API from '../../utils/axios';
 
 function SkillTag({ id, name }) {
   return (

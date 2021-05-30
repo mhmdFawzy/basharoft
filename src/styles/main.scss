@@ -40,7 +40,6 @@ a:active {
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
       grid-row-gap: 2.9vw;
-
     }
   }
 }
@@ -52,7 +51,7 @@ a:active {
   grid-row-gap: 0px;
   justify-content: space-between;
 
-  >svg {
+  > svg {
     width: 100%;
     padding: 1.6vw 2vw 1.6vw 2.8vw;
     height: 17.5vw;

@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Rect from '../../components/loading/Rect';
 import SearchInput from '../../components/SearchInput';

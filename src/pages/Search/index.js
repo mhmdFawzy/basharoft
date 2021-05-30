@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 // import PropTypes from "prop-types";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -81,7 +81,7 @@ function Search() {
             {location.state?.searchVal && (
               <div className="jobsWrapper">
                 {Object.keys(options).length >= 1 &&
-                  Object.keys(options).map((uuid, i) => {
+                  Object.keys(options).map(uuid => {
                     return (
                       <Suspense fallback={<div>Loading...</div>} key={uuid}>
                         <JobCard job={options[uuid]} />

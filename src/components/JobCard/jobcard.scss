@@ -1,0 +1,90 @@
+@import '../../styles/colors';
+@import '../../styles/media';
+
+.jobcardWrapper {
+  background-color: $white;
+  // width: 45vw;
+  padding: 1.6vw 2vw 1.6vw 2.8vw;
+  margin-bottom: 2.2vw;
+
+  // height: 19.5vw;
+  border-radius: 2px;
+
+  // &:nth-child(even) {
+  //   margin-left: 2.2vw;
+  // }
+
+  // &:nth-child(odd) {
+  //   margin-right: 2.2vw;
+  // }
+
+  @include for-phone-only {
+    // height: 37vw;
+
+    // &:nth-child(odd) {
+    //   margin-right: unset;
+    // }
+
+    // &:nth-child(even) {
+    //   margin-left: unset;
+    // }
+  }
+
+  h3 {
+    margin: 0;
+    height: 2.4vw;
+    margin-bottom: 1.1vw;
+
+    @include for-phone-only {
+      height: 4.5vw;
+    }
+  }
+
+  .jobcard {
+    &__details {
+      margin-top: 2vw;
+
+      // margin-bottom: 1.6vw;
+      @include for-phone-only {
+        margin-top: 3vw;
+      }
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .skillsWrapper {
+    &__skils {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    .skills {
+      >svg {
+        height: 3vw;
+        width: 6vw;
+      }
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11vw, 1fr));
+
+      @include for-phone-only {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+      }
+    }
+
+    span {
+      margin-bottom: 0.9vw;
+      display: inline-block;
+    }
+  }
+
+  @include for-phone-only {
+    width: 100%;
+  }
+}

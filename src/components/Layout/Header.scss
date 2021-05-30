@@ -1,0 +1,111 @@
+@import './../../styles/colors';
+@import './../../styles/media';
+
+.navWrapper {
+  height: 7.5vw;
+  max-height: 77px;
+  align-self: flex-start;
+  padding: 1.3vw 2.7vw;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $white;
+
+  &__logo {
+    color: #000;
+    text-transform: capitalize;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 28px;
+  }
+
+  &__hamburgerButton {
+    height: 3rem;
+    width: 3rem;
+    position: relative;
+    right: 1.5rem;
+    font-size: 12px;
+    display: none;
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    order: 2;
+
+    @include for-phone-only {
+      display: block;
+    }
+
+    div {
+
+      &,
+      &:before {
+        height: 4px;
+        pointer-events: none;
+        display: block;
+        content: '';
+        width: 100%;
+        background-color: black;
+        border-radius: 5px;
+      }
+
+      &:before {
+        top: 1.6vw;
+        position: absolute;
+      }
+    }
+  }
+
+  &__items {
+    width: 33%;
+
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 0;
+      margin: 0;
+
+      list-style-type: none;
+
+      @include for-phone-only {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 30%;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        background-color: $white;
+        padding: 1rem 2rem;
+        margin: 0;
+        transition: 0.2s ease-out;
+        // transform: translateX(100%);
+        display: flex;
+        justify-content: space-around;
+        z-index: 99;
+        list-style: none;
+      }
+    }
+
+    // &.show {
+    //   transform: translateX(0);
+    // }
+  }
+
+  &__item {
+    padding: 0 2rem;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+
+    @include for-phone-only {
+      padding: 1rem 0;
+    }
+  }
+
+  .navLink.active {
+    border-bottom: 1px solid $borderBottom;
+  }
+}

@@ -1,0 +1,17 @@
+@import "../../styles/colors";
+
+.job__relatedskills {
+    background-color: $white;
+    padding: 2vw 1.45vw 4.1vw 2.7vw;
+
+    svg {
+        width: 100%;
+        position: relative;
+        top: 1vw;
+        left: -10.5vw;
+    }
+
+    h3 {
+        margin: 0;
+    }
+}

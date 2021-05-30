@@ -1,0 +1,34 @@
+@import '../../styles/colors';
+@import '../../styles/media';
+
+.skilltagWrapper {
+  background-color: $darkGray;
+  height: 2.5vw;
+  padding: 0.4vw 0.8vw;
+  border-radius: 5px;
+  margin-bottom: 0.6vw;
+  min-height: 16px;
+  margin-right: 0.5vw;
+  padding: 0.4vw 1.3vw 0.4vw 0.8vw;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+
+  // width: 13.6vw;
+  @include for-tablet-up {
+    font-size: 1vw;
+    font-weight: 700;
+  }
+
+  @include for-desktop-up {
+    font-size: 0.8vw;
+    font-weight: 500;
+  }
+
+  @include for-phone-only {
+    height: 5.5vw;
+    font-size: 90%;
+    font-weight: 700;
+    padding: 0.8vw 1.7vw 0.8vw 1vw;
+  }
+}

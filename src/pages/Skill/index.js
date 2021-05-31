@@ -58,7 +58,7 @@ function Skill() {
         <div className="container__grid">
           <div className="job__relatedskills">
             <h3>Description:</h3>
-            <p> {skillDescription}</p> <h3>Related Jobs:</h3>
+            <p> {skillDescription || 'No description'}</p> <h3>Related Jobs:</h3>
             {relatedJobs.length >= 1 ? (
               relatedJobs.map(job => (
                 <Suspense fallback={<Rect />} key={job.job_uuid}>

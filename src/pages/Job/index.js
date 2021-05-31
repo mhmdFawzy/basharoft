@@ -1,9 +1,8 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router';
 import API from '../../utils/axios';
-import { Link } from 'react-router-dom';
-
 import Rect from '../../components/loading/Rect';
+import RelatedLinks from '../../components/RelatedLinks';
 import './job.scss';
 
 const RelatedCard = React.lazy(() => import('../../components/RelatedCard'));
@@ -70,22 +69,7 @@ function Job() {
           </div>
           <div className="related">
             <h3>Related Jobs:</h3>
-            <ul>
-              {relatedJobs.length >= 1 ? (
-                relatedJobs.map((job, i) => (
-                  <li key={i}>
-                    <Link
-                      to={{
-                        pathname: `/job/${job.uuid}`,
-                      }}>
-                      {job.title}
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <li>Can not find related jobs</li>
-              )}
-            </ul>
+            <RelatedLinks relatedLinks={relatedJobs} type={'jobs'} path={'job'} />
           </div>
         </div>
       </div>

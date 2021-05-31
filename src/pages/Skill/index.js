@@ -2,7 +2,7 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router';
 import API from '../../utils/axios';
 import { Link } from 'react-router-dom';
-
+import RelatedLinks from '../../components/RelatedLinks';
 import Rect from '../../components/loading/Rect';
 import '../Job/job.scss';
 
@@ -73,22 +73,7 @@ function Skill() {
           </div>
           <div className="related">
             <h3>Related Skills:</h3>
-            <ul>
-              {relatedSkills.length >= 1 ? (
-                relatedSkills.map((skill, i) => (
-                  <li key={i}>
-                    <Link
-                      to={{
-                        pathname: `/skill/${skill.uuid}`,
-                      }}>
-                      {skill.skill_name}
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <li>Can not find related jobs</li>
-              )}
-            </ul>
+            <RelatedLinks relatedLinks={relatedSkills} type={'Skills'} path={'skill'} />
           </div>
         </div>
       </div>

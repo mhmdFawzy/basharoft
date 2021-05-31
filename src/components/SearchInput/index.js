@@ -60,6 +60,7 @@ function SearchInput() {
     setValue(e.target.value);
   };
   const handleSubmit = e => {
+    setValue('');
     submitSuggest(e);
   };
   return (

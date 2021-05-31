@@ -35,6 +35,9 @@ function JobCard({ job }, ref) {
         setError('No associated skills found for job ');
       }
     }
+    return () => {
+      setRelatedSkills([]);
+    };
   }, [job.skills?.length, job.uuid]);
   useEffect(() => {
     return () => {

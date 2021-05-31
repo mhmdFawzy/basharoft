@@ -43,6 +43,7 @@ function Home({ isloading, error, jobsNumber }) {
     },
     [isloading, jobs]
   );
+
   return (
     <div>
       <SearchInput />

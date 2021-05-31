@@ -30,7 +30,7 @@ function Header({ children }) {
   };
 
   return (
-    <navbar>
+    <nav>
       <div className="navWrapper">
         <h1 className="navWrapper__logo">jobsNow</h1>
         <button type="button" className="navWrapper__hamburgerButton" onClick={openNav}>
@@ -46,7 +46,7 @@ function Header({ children }) {
         </div>
       </div>
       {children}
-    </navbar>
+    </nav>
   );
 }
 

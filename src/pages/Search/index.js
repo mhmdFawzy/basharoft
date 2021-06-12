@@ -77,7 +77,7 @@ function Search() {
                 {Object.keys(options).length >= 1 &&
                   Object.keys(options).map(uuid => {
                     return (
-                      <Suspense fallback={<div>Loading...</div>} key={uuid}>
+                      <Suspense fallback={<Rect />} key={uuid}>
                         <JobCard job={options[uuid]} />
                       </Suspense>
                     );

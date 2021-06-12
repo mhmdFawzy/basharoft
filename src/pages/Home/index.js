@@ -1,18 +1,30 @@
-import React, { Suspense, useCallback, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Rect from '../../components/loading/Rect';
 import SearchInput from '../../components/SearchInput';
 import API from '../../utils/axios';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './home.scss';
 import { addJobs } from '../../redux/actions/jobs';
 const JobCard = React.lazy(() => import('../../components/JobCard'));
+import { setJobs } from '../../redux/actions/jobs';
 
-function Home({ isloading, error, jobsNumber }) {
+function Home() {
   const dispatch = useDispatch();
   const [loadingMore, setLoadingMore] = useState(false);
   const jobs = useSelector(state => state.jobs);
   const observer = useRef();
+  const [isloading, setIsloading] = useState(true);
+  const [error, setError] = useState('');
+  const normalizedJobs = {};
+  const [jobsNumber, setjobsNumber] = useState(0);
+  const getLastLink = links => {
+    const linkObj = links.filter(link => {
+      return link.rel === 'last';
+    });
+    let match = linkObj[0].href.match('[?&]' + 'offset' + '=([^&]+)');
+    return match[1];
+  };
   const lastCrad = useCallback(
     node => {
       if (isloading) return;
@@ -43,7 +55,54 @@ function Home({ isloading, error, jobsNumber }) {
     },
     [isloading, jobs]
   );
-
+  useEffect(() => {
+    console.log(jobs);
+    if (Object.keys(jobs).length >= 1) {
+      return;
+    }
+    setIsloading(true);
+    try {
+      API.get('jobs?limit=12')
+        .then(res => {
+          const lastLink = getLastLink(res.data[res.data.length - 1].links);
+          setjobsNumber(lastLink);
+          res.data.slice(0, 12).forEach(job => {
+            const modifiedJobs = { ...job };
+            normalizedJobs[job.uuid] = modifiedJobs;
+          });
+          setIsloading(false);
+          dispatch(setJobs(normalizedJobs));
+        })
+        .catch(() => {
+          setError('Something went wrong with jobs');
+          setIsloading(false);
+        });
+    } catch (err) {
+      setIsloading(false);
+      setError('Something went wrong with jobs');
+    }
+  }, []);
+  // useEffect(() => {
+  //   setIsloading(true);
+  //   try {
+  //     API.get('skills?limit=499')
+  //       .then(res => {
+  //         res.data.forEach(skill => {
+  //           const modifiedJobs = { ...skill };
+  //           normalizedSkills[skill.uuid] = modifiedJobs;
+  //         });
+  //         setIsloading(false);
+  //         dispatch(setSkills(normalizedSkills));
+  //       })
+  //       .catch(() => {
+  //         setError('Something went wrong with skills');
+  //         setIsloading(false);
+  //       });
+  //   } catch (err) {
+  //     setIsloading(false);
+  //     setError('Something went wrong with skills');
+  //   }
+  // }, []);
   return (
     <div>
       <SearchInput />
@@ -54,13 +113,13 @@ function Home({ isloading, error, jobsNumber }) {
             Object.keys(jobs).map((uuid, i) => {
               if (Object.keys(jobs).length - 2 === i) {
                 return (
-                  <Suspense fallback={<div>Loading...</div>} key={uuid}>
+                  <Suspense fallback={<Rect />} key={uuid}>
                     <JobCard job={jobs[uuid]} ref={lastCrad} />
                   </Suspense>
                 );
               } else {
                 return (
-                  <Suspense fallback={<div>Loading...</div>} key={uuid}>
+                  <Suspense fallback={<Rect />} key={uuid}>
                     <JobCard job={jobs[uuid]} />
                   </Suspense>
                 );
@@ -75,10 +134,11 @@ function Home({ isloading, error, jobsNumber }) {
   );
 }
 
-Home.propTypes = {
-  isloading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
-  jobsNumber: PropTypes.number.isRequired,
-};
+// Home.propTypes = {
+//   { isloading, error, jobsNumber }
+//   isloading: PropTypes.bool.isRequired,
+//   error: PropTypes.string.isRequired,
+//   jobsNumber: PropTypes.number.isRequired,
+// };
 
 export default Home;

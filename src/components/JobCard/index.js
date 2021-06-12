@@ -1,19 +1,21 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './jobcard.scss';
 import API from '../../utils/axios';
 import { editJob } from '../../redux/actions/jobs';
 import Rect from '../loading/Rect';
 const SkillTag = React.lazy(() => import('../SkillTag'));
+import { setSkills } from '../../redux/actions/skills';
 
 function JobCard({ job }, ref) {
   const dispatch = useDispatch();
-  const [relatedSkills, setRelatedSkills] = useState([]);
+  const reduxSkills = useSelector(state => state.skills);
+  const [relatedSkills, setRelatedSkills] = useState({});
   const [error, setError] = useState('');
   useEffect(() => {
-    if (job.skills?.length === 6) {
+    if (job.skills && Object.keys(job.skills).length === 6) {
       return;
     } else {
       try {
@@ -21,10 +23,7 @@ function JobCard({ job }, ref) {
           .then(res => {
             res.data.skills.slice(0, 6).forEach(skill => {
               setRelatedSkills(prevState => {
-                return [
-                  ...prevState,
-                  { skill_name: skill.skill_name, skill_uuid: skill.skill_uuid },
-                ];
+                return { ...prevState, [skill.skill_uuid]: { ...skill } };
               });
             });
           })
@@ -35,16 +34,21 @@ function JobCard({ job }, ref) {
         setError('No associated skills found for job ');
       }
     }
-    return () => {
-      setRelatedSkills([]);
-    };
-  }, [job.skills?.length, job.uuid]);
+  }, [job.uuid]);
   useEffect(() => {
-    return () => {
-      if (relatedSkills.length === 6 && job.title)
-        dispatch(editJob({ id: job.uuid, skills: relatedSkills }));
-    };
-  }, [dispatch, job.title, job.uuid, relatedSkills]);
+    if (Object.keys(relatedSkills).length === 6) {
+      dispatch(editJob({ id: job.uuid, skills: Object.keys(relatedSkills) }));
+    }
+
+    Object.keys(relatedSkills).map(skill => {
+      if (Object.prototype.hasOwnProperty.call(reduxSkills, skill)) {
+        return;
+      } else {
+        dispatch(setSkills({ id: skill, value: relatedSkills[skill] }));
+      }
+    });
+  }, [relatedSkills]);
+
   return (
     <div className="jobcardWrapper" ref={ref}>
       <div className="jobcard__content">
@@ -52,16 +56,10 @@ function JobCard({ job }, ref) {
         <div className="skillsWrapper">
           <span>Related Skills:</span>
           <div className="skills">
-            {job?.skills?.length === 6
-              ? job?.skills.map(skill => (
-                  <Suspense fallback={<div>Loading...</div>} key={skill.skill_uuid}>
-                    <SkillTag id={skill.skill_uuid} name={skill.skill_name} />
-                  </Suspense>
-                ))
-              : relatedSkills.length === 6
-              ? relatedSkills.map(skill => (
-                  <Suspense fallback={<div>Loading...</div>} key={skill.skill_uuid}>
-                    <SkillTag id={skill.skill_uuid} name={skill.skill_name} />
+            {job.skills?.length === 6
+              ? job.skills.map(skill => (
+                  <Suspense fallback={<Rect />} key={skill}>
+                    <SkillTag id={skill} name={reduxSkills[skill].skill_name} />
                   </Suspense>
                 ))
               : error !== ''

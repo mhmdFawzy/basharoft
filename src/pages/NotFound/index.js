@@ -6,7 +6,7 @@ function NotFound() {
     <div>
       <SearchInput />
       <main className="container">
-        <h3>It looke you are lost, start searching now</h3>
+        <h3>Are you lost?! start searching now</h3>
       </main>
     </div>
   );

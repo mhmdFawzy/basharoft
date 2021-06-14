@@ -53,6 +53,7 @@ function SearchInput() {
     setIsComponentVisible(true);
   };
   const closeSuggest = () => {
+    setValue('');
     setIsComponentVisible(false);
   };
   const handleSearch = e => {

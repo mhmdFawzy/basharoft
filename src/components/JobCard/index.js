@@ -9,9 +9,10 @@ import Rect from '../loading/Rect';
 const SkillTag = React.lazy(() => import('../SkillTag'));
 import { setSkills } from '../../redux/actions/skills';
 
-function JobCard({ job }, ref) {
+function JobCard({ job, search }, ref) {
   const dispatch = useDispatch();
   const reduxSkills = useSelector(state => state.skills);
+  const reduxJobs = useSelector(state => state.jobs);
   const [relatedSkills, setRelatedSkills] = useState({});
   const [error, setError] = useState('');
   useEffect(() => {
@@ -36,7 +37,7 @@ function JobCard({ job }, ref) {
     }
   }, [job.uuid]);
   useEffect(() => {
-    if (Object.keys(relatedSkills).length === 6) {
+    if (Object.keys(relatedSkills).length === 6 && reduxJobs[job.uuid]) {
       dispatch(editJob({ id: job.uuid, skills: Object.keys(relatedSkills) }));
     }
 
@@ -56,15 +57,20 @@ function JobCard({ job }, ref) {
         <div className="skillsWrapper">
           <span>Related Skills:</span>
           <div className="skills">
-            {job.skills?.length === 6
-              ? job.skills.map(skill => (
+            {search
+              ? Object.keys(relatedSkills).length === 6 &&
+                Object.keys(relatedSkills).map(skill => (
+                  <Suspense fallback={<Rect />} key={skill}>
+                    <SkillTag id={skill} name={relatedSkills[skill].skill_name} />
+                  </Suspense>
+                ))
+              : job.skills?.length === 6 &&
+                job.skills?.map(skill => (
                   <Suspense fallback={<Rect />} key={skill}>
                     <SkillTag id={skill} name={reduxSkills[skill].skill_name} />
                   </Suspense>
-                ))
-              : error !== ''
-              ? error
-              : Array.from({ length: 6 }).map((item, i) => <Rect key={i} />)}
+                ))}
+            {error && error}
           </div>
           <div className="jobcard__details">
             <Link to={`/job/${job.uuid}`}>View Job details</Link>
@@ -74,6 +80,7 @@ function JobCard({ job }, ref) {
     </div>
   );
 }
+
 JobCard.propTypes = {
   job: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
@@ -83,6 +90,7 @@ JobCard.propTypes = {
     parent_uuid: PropTypes.string.isRequired,
     skills: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   }).isRequired,
+  search: PropTypes.bool.isRequired,
 };
 JobCard.displayName = 'JobCard';
 

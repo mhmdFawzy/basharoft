@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router';
 import API from '../../utils/axios';
-import { Link } from 'react-router-dom';
 import RelatedLinks from '../../components/RelatedLinks';
 import Rect from '../../components/loading/Rect';
 import '../Job/job.scss';

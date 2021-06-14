@@ -1,16 +1,19 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import useLocalStorage from '../../utils/useLocalStorage';
 import API from '../../utils/axios';
 import SearchInput from '../../components/SearchInput';
 import Rect from '../../components/loading/Rect';
 const JobCard = React.lazy(() => import('../../components/JobCard'));
+// import { addJobs, countJob } from '../../redux/actions/jobs';
+// import { getJobsCountfromLinks } from '../../utils/getJobsCount.js';
 
 function Search() {
   let location = useLocation();
-  const jobs = useSelector(state => state.jobs);
+  // const dispatch = useDispatch();
+  // const jobs = useSelector(state => state.jobs);
   const [error, setError] = useState('');
   const [options, setOptions] = useState({});
   const [isloading, setLoading] = useState(false);
@@ -43,7 +46,9 @@ function Search() {
               const modifiedJobs = { ...relatedJob };
               normalizedJobs[relatedJob.uuid] = modifiedJobs;
             });
-
+            // const jobsFromLinks = getJobsNumfromLinks(res.data[res.data.length - 1].links);
+            // dispatch(addJobs(normalizedJobs));
+            // dispatch(countJob(jobsFromLinks));
             setOptions(normalizedJobs);
             setLoading(false);
             setError('');
@@ -58,7 +63,7 @@ function Search() {
         setError('Something went wrong');
       }
     }
-  }, [jobs, location.state?.searchVal]);
+  }, [location.state?.searchVal]);
   return (
     <div>
       <SearchInput />
@@ -78,7 +83,7 @@ function Search() {
                   Object.keys(options).map(uuid => {
                     return (
                       <Suspense fallback={<Rect />} key={uuid}>
-                        <JobCard job={options[uuid]} />
+                        <JobCard job={options[uuid]} search={true} />
                       </Suspense>
                     );
                   })}

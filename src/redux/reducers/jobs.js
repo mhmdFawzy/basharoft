@@ -3,7 +3,7 @@ import { EDITJOB, ADDJOB } from '../types';
 export default function jobsReducer(state = {}, action) {
   switch (action.type) {
     case EDITJOB: {
-      const id = action.payload.id;
+      const { id } = action.payload;
       return {
         ...state,
         [id]: {
